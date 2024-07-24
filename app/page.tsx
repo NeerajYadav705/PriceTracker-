@@ -10,12 +10,12 @@ const Home = () => {
           <div className="flex flex-col justify-center">
             <p className="small-text">
               Unlock Smart Shopping Today
-              <Image
+              {/* <Image
                 src="/assets/icons/arrow-right.svg"
                 alt="arrow-right"
                 width={16}
                 height={16}
-              />
+              /> */}
             </p>
             <h1 className="head-text">
               Discover the Power of

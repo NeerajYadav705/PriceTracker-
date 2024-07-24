@@ -1,5 +1,6 @@
 "use client";
 
+import { scrapeAndStoreProduct } from "@/lib/actions";
 import React, { FormEvent, useState } from "react";
 
 const isValidAmazonProductURL = (url: string) => {
@@ -20,14 +21,14 @@ const isValidAmazonProductURL = (url: string) => {
 };
 
 const Searchbar = () => {
-  const [SearchPrompt, setSearchPrompt] = useState("");
+  const [searchPrompt, setSearchPrompt] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const isValidLink = isValidAmazonProductURL(SearchPrompt);
+    const isValidLink = isValidAmazonProductURL(searchPrompt);
 
     if (!isValidLink) return alert("Please provide a valid Amazon link");
 
@@ -35,7 +36,7 @@ const Searchbar = () => {
       setIsLoading(true);
 
       //scaraping the product page
-      
+      const product =await scrapeAndStoreProduct(searchPrompt)
     } catch (error) {
       console.log(error);
     } finally {
@@ -47,7 +48,7 @@ const Searchbar = () => {
     <form className="flex flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
       <input
         type="text"
-        value={SearchPrompt}
+        value={searchPrompt}
         onChange={(e) => setSearchPrompt(e.target.value)}
         placeholder="Enter the product link"
         className="searchbar-input"
@@ -56,7 +57,7 @@ const Searchbar = () => {
       <button
         type="submit"
         className="searchbar-btn"
-        disabled={SearchPrompt === ""}
+        disabled={searchPrompt === ""}
       >
         {isLoading ? "Searching..." : "Search"}
       </button>
