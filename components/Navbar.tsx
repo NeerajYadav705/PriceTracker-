@@ -14,17 +14,17 @@ const Navbar = () => {
       <nav className="nav">
         <Link href="/" className="flex items-center gap-1">
           <Image
-            src="/assets/icons/logo.svg"
+            src="/assets/icons/logo.png"
             width={27}
             height={27}
             alt="logo"
           />
 
           <p className="nav-log font-extrabold">
-            Price<span className="text-primary">Tracker</span>
+            Price<span className="text-lime-500"> Tracker</span>
           </p>
         </Link>
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 cursor-not-allowed">
             {navIcons.map((icon)=>(
                 <Image
                 key={icon.alt}

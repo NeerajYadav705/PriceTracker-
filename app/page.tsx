@@ -5,33 +5,31 @@ import Image from "next/image";
 const Home = () => {
   return (
     <>
-      <section className="px-6 md:px-20 py-24">
+      <section className=" px-6 md:px-20 py-16">
         <div className="flex max-xl:flex-col gap-16">
           <div className="flex flex-col justify-center">
-            <p className="small-text">
-              Unlock Smart Shopping Today
-              {/* <Image
+            {/* <p className="small-text">
+              Unlock Smart Shopping Today </p> */}
+            {/* <Image
                 src="/assets/icons/arrow-right.svg"
                 alt="arrow-right"
                 width={16}
                 height={16}
               /> */}
-            </p>
+            {/* </p> */}
             <h1 className="head-text">
               Discover the Power of
-              <span className="text-primary"> PriceTracker</span>
+              <span className="text-lime-500"> PriceTracker</span>
             </h1>
             <p className="mt-6">
               Transform your product strategy with powerful, self-serve
               analytics to convert, engage, and retain more.
             </p>
 
-            <Searchbar/>
-          
+            <Searchbar />
           </div>
-
-            <HeroCarousel/>  
-
+          
+          <HeroCarousel />
         </div>
       </section>
 

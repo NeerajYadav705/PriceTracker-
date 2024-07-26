@@ -7,7 +7,7 @@ const heroImage = [
   { imgUrl: "/assets/images/hero-1.png", alt: "smartwatch" },
   { imgUrl: "/assets/images/hero-2.svg", alt: "bag" },
   { imgUrl: "/assets/images/hero-3.png", alt: "lamp" },
-  { imgUrl: "/assets/images/hero-4.svg", alt: "air fryer" },
+  { imgUrl: "/assets/images/hero4.png", alt: "air fryer" },
   { imgUrl: "/assets/images/hero-5.svg", alt: "chair" },
 ];
 
