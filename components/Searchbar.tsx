@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
 import { scrapeAndStoreProduct } from '@/lib/actions';
-import { FormEvent, useState } from 'react'
+import { FormEvent, useState } from 'react';
 
 const isValidAmazonProductURL = (url: string) => {
   try {
     const parsedURL = new URL(url);
     const hostname = parsedURL.hostname;
 
-    if(
+    if (
       hostname.includes('amazon.com') || 
-      hostname.includes ('amazon.') || 
+      hostname.includes('amazon.') || 
       hostname.endsWith('amazon')
     ) {
       return true;
@@ -20,30 +20,48 @@ const isValidAmazonProductURL = (url: string) => {
   }
 
   return false;
-}
+};
 
 const Searchbar = () => {
   const [searchPrompt, setSearchPrompt] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
+  const maxRetries = 3;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const isValidLink = isValidAmazonProductURL(searchPrompt);
 
-    if(!isValidLink) return alert('Please provide a valid Amazon link')
+    if (!isValidLink) return alert('Please provide a valid Amazon link');
 
     try {
       setIsLoading(true);
+      setRetryCount(0);
 
-      // Scrape the product page
-      const product = await scrapeAndStoreProduct(searchPrompt);
+      const fetchProductData = async () => {
+        try {
+          // Scrape the product page
+          const product = await scrapeAndStoreProduct(searchPrompt);
+          console.log('Product scraped successfully:', product);
+        } catch (error) {
+          if (retryCount < maxRetries) {
+            setRetryCount(prevCount => prevCount + 1);
+            console.warn(`Retrying... (${retryCount + 1}/${maxRetries})`);
+            await fetchProductData(); // Retry the request
+          } else {
+            console.error('Failed to scrape product after multiple attempts:', error);
+          }
+        }
+      };
+
+      await fetchProductData(); // Initial request
     } catch (error) {
-      console.log(error);
+      console.error('An error occurred:', error);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form 
@@ -66,7 +84,7 @@ const Searchbar = () => {
         {isLoading ? 'Searching...' : 'Search'}
       </button>
     </form>
-  )
-}
+  );
+};
 
-export default Searchbar
+export default Searchbar;
