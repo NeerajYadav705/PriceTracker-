@@ -36,9 +36,9 @@ const Searchbar = () => {
       setIsLoading(true);
 
       //scaraping the product page
-      const product =await scrapeAndStoreProduct(searchPrompt)
+      const product = await scrapeAndStoreProduct(searchPrompt);
     } catch (error) {
-      console.log(error);
+      console.error("An error occurred while scraping the product:", error);
     } finally {
       setIsLoading(false);
     }
